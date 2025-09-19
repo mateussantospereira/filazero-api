@@ -1,19 +1,10 @@
-const registersModel = require("../models/registersModel");
-
-function responseModel(model) {
-    return model
-        .then((data) => {
-            return data;
-        })
-        .catch((error) => {
-            return error;
-        });
-}
+const registersClient = require("../clients/registersClient");
+const returnResponse = require("../helpers/returnResponse");
 
 class registersController {
     async list(req, res) {
-        const model = await registersModel.list();
-        return res.json({ message: "Model" });
+        const client = await registersClient.list();
+        return returnResponse(res, client);
     }
 }
 

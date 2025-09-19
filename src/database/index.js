@@ -31,6 +31,7 @@ class database {
         const sql = `
             CREATE TABLE IF NOT EXISTS registers (
                 name VARCHAR(100) NOT NULL,
+                cpf CHAR(14) NOT NULL UNIQUE,
                 gender CHAR(1) NOT NULL CHECK (gender IN ("M", "F")),
                 birth DATE NOT NULL,
                 email VARCHAR(100) UNIQUE PRIMARY KEY,

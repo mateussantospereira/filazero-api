@@ -4,10 +4,12 @@ USE db_filazero;
 
 CREATE TABLE IF NOT EXISTS registers (
     name VARCHAR(100) NOT NULL,
+    cpf CHAR(14) NOT NULL UNIQUE,
     gender CHAR(1) NOT NULL CHECK (gender IN ("M", "F")),
     birth DATE NOT NULL,
     email VARCHAR(100) UNIQUE PRIMARY KEY,
     password VARCHAR(200) NOT NULL,
+    /* 0: manager 1: patient 2: doctor */
     type TINYINT NOT NULL CHECK (type IN (0, 1, 2))
 );
 
