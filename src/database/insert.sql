@@ -35,31 +35,30 @@ VALUES
 ("Antônio Raposo Tavares", "332.102.102-51", "M", "1979-10-23", "raposo@gmail.com", 2),
 ("Pedro Vaz de Barros", "103.302.102-21", "M", "1962-04-02", "pedro.barros@gmail.com", 2),  
 ("André de Leão", "102.108.144-03", "M", "1975-04-23", "andre@gmail.com", 2), 
-("Nicolau Barreto", "992.142.142-03", "M", "1980-09-14", "nicolau@gmail.com", 2),
+("Nicolau Barreto", "992.142.142-03", "M", "1980-09-14", "nicolau@gmail.com", 2)
 
+INSERT INTO hospitals (name, street, number, district, cep, city, uf)
+VALUES
+("São Lucas Evangelista", "Isabel de Bragança", 180, "Imperador Pedro I", "17580-000", "Pompéia", "SP"),
+("São Camilo de Léllis", "Carlos Frederico Lacerda", 197, "Presidente Prudente", "17580-000", "Pompéia", "SP")
 
-
-
-
-"Hospital São Lucas Evangelista, Rua. Pedro de Bragança"
-
-INSERT INTO doctors (email, field, hospital, duration)
- "pascoal@gmail.com"
- "cipriano@gmail.com"
- "serafim@gmail.com"
- "teodosio@gmail.com"
- "guterres@gmail.com"
- "teresa@gmail.com"
- "filipe@gmail.com"
- "sebastiao@gmail.com"
- "jacques@gmail.com"
- "manuel@gmail.com"
- "duarte@gmail.com"
- "fernao@gmail.com"
- "paes.leme@gmail.com"
- "dias.velho@gmail.com"
- "lourenco@gmail.com"
- "raposo@gmail.com"
- "pedro.barros@gmail.com"
- "andre@gmail.com"
- "nicolau@gmail.com"
+INSERT INTO doctors (email, field, id_hospital, duration)
+("pascoal@gmail.com", "", 1, ""),
+("cipriano@gmail.com", "", 1, ""),
+("serafim@gmail.com", "", 1, ""),
+("teodosio@gmail.com", "", 1, ""),
+("guterres@gmail.com", "", 1, ""),
+("teresa@gmail.com", "", 1, ""),
+("filipe@gmail.com", "", 1, ""),
+("sebastiao@gmail.com", "", 1, ""),
+("jacques@gmail.com", "", 1, ""),
+("manuel@gmail.com", "", 1, ""),
+("duarte@gmail.com", "", 1, ""),
+("fernao@gmail.com", "", 1, ""),
+("paes.leme@gmail.com", "", 1, ""),
+("dias.velho@gmail.com", "", 1, ""),
+("lourenco@gmail.com", "", 1, ""),
+("raposo@gmail.com", "", 1, ""),
+("pedro.barros@gmail.com", "", 1, ""),
+("andre@gmail.com", "", 1, ""),
+("nicolau@gmail.com", "", 1, "")
