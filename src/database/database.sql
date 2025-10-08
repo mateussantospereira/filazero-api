@@ -32,6 +32,12 @@ CREATE TABLE IF NOT EXISTS hospitals (
     ) STORED
 );
 
+CREATE TABLE IF NOT EXISTS fields (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255)
+);
+
 CREATE TABLE IF NOT EXISTS expedients (
     id_expedient INT NOT NULL
         PRIMARY KEY AUTO_INCREMENT,
@@ -69,12 +75,16 @@ CREATE TABLE IF NOT EXISTS weekdays (
 
 CREATE TABLE IF NOT EXISTS doctors (
     email VARCHAR(100) PRIMARY KEY,
-    field VARCHAR(25) NOT NULL,
+    id_field INT NOT NULL,
     id_hospital INT NOT NULL,
     id_expedient INT NOT NULL,
     first_day DATE NOT NULL CURRENT_DATE,
     FOREIGN KEY (email) 
         REFERENCES registers(email)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_field) 
+        REFERENCES registers(id_field)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_hospital) 
