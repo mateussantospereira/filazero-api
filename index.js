@@ -4,12 +4,15 @@ const app = express();
 const PORT = process.env.PORT;
 const init = require("./src/main/init");
 
-init(app, express);
+(async () => {
+    try {
+        await init(app, express);
 
-app.listen(PORT, (error) => {
-    if (error) {
-        return console.log(error);
+        app.listen(PORT, () => {
+            console.log(`Aplicação na porta ${PORT}`);
+        });
+    } catch (error) {
+        console.error("Erro ao tentar iniciar a aplicão:", error);
+        process.exit(1);
     }
-
-    console.log(`Aplicação na porta ${PORT}`);
-});
+})();

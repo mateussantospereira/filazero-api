@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS db_filazero;
-
-USE db_filazero;
-
 CREATE TABLE IF NOT EXISTS registers (
     name VARCHAR(100) NOT NULL,
     cpf CHAR(14) NOT NULL UNIQUE,
@@ -22,18 +18,11 @@ CREATE TABLE IF NOT EXISTS hospitals (
     district VARCHAR(100) NOT NULL,
     cep CHAR(9) NOT NULL,
     city VARCHAR(100) NOT NULL,
-    uf CHAR(2) NOT NULL,
-    address TEXT GENERATED ALWAYS AS (
-        CONCAT (
-            name, "Rua ", street, ", ", number, "\n",
-            "Bairro ", district, "\n",
-            cep, " - ", city, " - ", uf
-        )
-    ) STORED
+    uf CHAR(2) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS fields (
-    id INT NOT NULL PRIMARY KEY,
+    id_field INT NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255)
 );
@@ -49,14 +38,11 @@ CREATE TABLE IF NOT EXISTS weekdays (
     id_expedient INT NOT NULL,
     weekday VARCHAR(13) NOT NULL
         CHECK (weekday IN (
-            0, 1, 2, 3, 5, 6
+            0, 1, 2, 3, 4, 5, 6
             /*
-            0: Domingo,
-            1: Segunda-feira,
-            2: Terça-feira,
-            3: Quarta-feira,
-            4: Quinta-feira,
-            5: Sexta-feira,
+            0: Domingo, 1: Segunda-feira,
+            2: Terça-feira, 3: Quarta-feira,
+            4: Quinta-feira, 5: Sexta-feira,
             6: Sábado
             */
         )),
@@ -65,12 +51,11 @@ CREATE TABLE IF NOT EXISTS weekdays (
     end TIME NOT NULL,
     break TIME,
     time_break TIME,
-    UNIQUE(weekday, week),
     FOREIGN KEY (id_expedient)
         REFERENCES expedients(id_expedient)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    PRIMARY KEY(expedients, weekday, week)
+    PRIMARY KEY(id_expedient, weekday, week)
 );
 
 CREATE TABLE IF NOT EXISTS doctors (
@@ -78,20 +63,20 @@ CREATE TABLE IF NOT EXISTS doctors (
     id_field INT NOT NULL,
     id_hospital INT NOT NULL,
     id_expedient INT NOT NULL,
-    first_day DATE NOT NULL CURRENT_DATE,
+    first_day DATE NOT NULL DEFAULT CURRENT_DATE,
     FOREIGN KEY (email) 
         REFERENCES registers(email)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_field) 
-        REFERENCES registers(id_field)
+        REFERENCES fields(id_field)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_hospital) 
         REFERENCES hospitals(id_hospital)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (expedients) 
+    FOREIGN KEY (id_expedient) 
         REFERENCES expedients(id_expedient)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -107,10 +92,10 @@ CREATE TABLE IF NOT EXISTS appointments (
     email_patient VARCHAR(100) NOT NULL
         REFERENCES registers(email)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE,
     date DATE NOT NULL,
     start TIME NOT NULL,
     end TIME NOT NULL,
-    registered DATETIME CURRENT_DATE,
+    registered DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (email_doctor, date, start)
 );

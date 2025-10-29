@@ -1,135 +1,51 @@
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
 const config = require("./config");
 const executeQuery = require("../helpers/executeQuery");
+const fs = require("fs");
+const path = require("path");
+const sqlPath = path.join(__dirname, "database.sql");
+const sqlScript = fs.readFileSync(sqlPath, "utf8");
 
 class database {
     async init() {
         await this.createDatabase();
-        await this.createTableRegisters();
-        await this.createTableDoctors();
-        await this.createTableSchedules();
-        await this.createTableAppointments();
+        await this.createTables();
+        return true;
     }
 
     async createDatabase() {
         const database = process.env.DB_NAME;
         const sql = `CREATE DATABASE IF NOT EXISTS ${database}`;
-        const connection = mysql.createConnection(config.options());
+        const connection = await mysql.createConnection(config.options());
 
-        return new Promise((resolve, reject) => {
-            connection.query(sql, (error) => {
-                if (error) {
-                    return reject(console.log(error));
-                }
-
-                return resolve(console.log("Banco de dados criado com êxito"));
-            });
-        });
+        try {
+            await connection.query(sql);
+            console.log("Banco de dados criado com êxito.");
+        } catch (error) {
+            console.error("Erro ao tentar criar banco de dados.");
+        } finally {
+            await connection.end();
+        }
     }
 
-    async createTableRegisters() {
-        const sql = `
-            CREATE TABLE IF NOT EXISTS registers (
-                name VARCHAR(100) NOT NULL,
-                cpf CHAR(14) NOT NULL UNIQUE,
-                gender CHAR(1) NOT NULL CHECK (gender IN ("M", "F")),
-                birth DATE NOT NULL,
-                email VARCHAR(100) UNIQUE PRIMARY KEY,
-                password VARCHAR(200) NOT NULL,
-                /* 0: manager, 1: patient, 2: doctor */
-                type TINYINT NOT NULL CHECK (type IN (0, 1, 2))
-            );
-        `;
+    async createTables() {
+        const tables = sqlScript
+            .split(";")
+            .map((line) => line.trim())
+            .filter((line) => line.length > 0);
 
-        return await this.createTable(sql, "registers");
-    }
+        for (const table of tables) {
+            let name = table
+                .split("CREATE TABLE IF NOT EXISTS")
+                .map((character) => character.trim())
+                .filter((character) => character.length > 0);
+            name = name[0].split("(");
+            name = name[0].trim();
 
-    async createTableHospitals() {
-        const sql = `
-            CREATE TABLE IF NOT EXISTS hospitals (
-                id_hospital INT NOT NULL
-                    PRIMARY KEY AUTO_INCREMENT,
-                name VARCHAR(100) NOT NULL,
-                street VARCHAR(100) NOT NULL,
-                number INT NOT NULL,
-                district VARCHAR(100) NOT NULL,
-                cep CHAR(9) NOT NULL,
-                city VARCHAR(100) NOT NULL,
-                uf CHAR(2) NOT NULL
-            );
-        `;
+            await this.createTable(table, name);
+        }
 
-        return await this.createTable(sql, "hospitals");
-    }
-
-    async createTableDoctors() {
-        const sql = `
-            CREATE TABLE IF NOT EXISTS doctors (
-                email VARCHAR(100) PRIMARY KEY,
-                field VARCHAR(25) NOT NULL,
-                id_hospital INT NOT NULL,
-                duration TIME NOT NULL,
-                FOREIGN KEY (email) 
-                    REFERENCES registers(email)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
-                FOREIGN KEY (id_hospital) 
-                    REFERENCES registers(id_hospital)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
-        `;
-
-        return await this.createTable(sql, "doctors");
-    }
-
-    async createTableSchedules() {
-        const sql = `
-            CREATE TABLE IF NOT EXISTS schedules (
-                id_schedule INT NOT NULL
-                PRIMARY KEY AUTO_INCREMENT,
-                email VARCHAR(100) UNIQUE NOT NULL,
-                weekday VARCHAR(13) NOT NULL
-                    CHECK (weekday IN (
-                        "Domingo",
-                        "Segunda-feira",
-                        "Terça-feira",
-                        "Quarta-feira",
-                        "Quinta-feira",
-                        "Sexta-feira",
-                        "Sábado"
-                    )),
-                start TIME NOT NULL,
-                end TIME NOT NULL,
-                break TIME,
-                time_break TIME,
-                UNIQUE (email, weekday)
-            );
-        `;
-
-        return await this.createTable(sql, "schedules");
-    }
-
-    async createTableAppointments() {
-        const sql = `
-            CREATE TABLE IF NOT EXISTS appointments (
-                id_appointment INT NOT NULL
-                PRIMARY KEY AUTO_INCREMENT,
-                email_doctor VARCHAR(100) NOT NULL
-                    REFERENCES doctors(email)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE,
-                email_patient VARCHAR(100) NOT NULL
-                    REFERENCES registers(email)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE,
-                date DATE NOT NULL,
-                start TIME NOT NULL,
-                end TIME NOT NULL,
-                UNIQUE (email_doctor, date, start)
-            );
-        `;
-
-        return await this.createTable(sql, "appointments");
+        return true;
     }
 
     async createTable(sql, name) {
