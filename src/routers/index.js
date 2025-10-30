@@ -1,7 +1,7 @@
-const routes = require("./routes");
-const cors = require("../config/cors");
+import routes from "./routes.js";
+import cors from "../config/cors.js";
 
-module.exports = async (app, express) => {
+export default async (app, express) => {
     app.use(express.json());
     app.use(cors);
     app.use("/", routes);

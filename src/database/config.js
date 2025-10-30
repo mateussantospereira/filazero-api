@@ -14,4 +14,4 @@ class config {
     }
 }
 
-module.exports = new config();
+export default new config();

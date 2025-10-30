@@ -1,7 +1,8 @@
-const { Router } = require("express");
+import { Router } from "express";
 const router = Router();
-const registersController = require("../controllers/registersController");
 
-router.get("/register/list", registersController.list);
+router.get("/", (req, res) => {
+    res.json({ message: "Olá js " });
+});
 
-module.exports = router;
+export default router;

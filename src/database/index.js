@@ -1,9 +1,9 @@
-const mysql = require("mysql2/promise");
-const config = require("./config");
-const executeQuery = require("../helpers/executeQuery");
-const fs = require("fs");
-const path = require("path");
-const sqlPath = path.join(__dirname, "database.sql");
+import mysql from "mysql2/promise";
+import config from "./config.js";
+import exec from "./exec.js";
+import fs from "fs";
+
+const sqlPath = new URL("./sql/database.sql", import.meta.url);
 const sqlScript = fs.readFileSync(sqlPath, "utf8");
 
 class database {
@@ -50,7 +50,7 @@ class database {
 
     async createTable(sql, name) {
         try {
-            await executeQuery(sql);
+            await exec(sql);
             return console.log(`Tabela ${name} criada com sucesso.`);
         } catch (error) {
             return console.error(`Erro ao criar a tabela ${name}: ` + error);
@@ -58,4 +58,4 @@ class database {
     }
 }
 
-module.exports = new database();
+export default new database();

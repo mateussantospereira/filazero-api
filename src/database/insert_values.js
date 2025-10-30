@@ -1,14 +1,18 @@
-const executeQuery = require("../helpers/executeQuery");
-const fs = require("fs");
-const path = require("path");
-const sqlPath = path.join(__dirname, "values.sql");
+import exec from "./exec.js";
+import query from "./query.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const sqlPath = new URL("./sql/values.sql", import.meta.url);
 const sqlScript = fs.readFileSync(sqlPath, "utf8");
 
 const insert_values = async () => {
     const sql = "SELECT COUNT(*) FROM registers";
-    const registers = await executeQuery(sql);
+    const [rows] = await query(sql);
+    const registers = rows;
 
-    if (registers[0]["COUNT(*)"] > 0) {
+    if (registers["COUNT(*)"] > 0) {
         console.log("Dados já inseridos.");
         return false;
     }
@@ -34,7 +38,7 @@ const insert_values = async () => {
 
 const insert_in_table = async (sql, name) => {
     try {
-        await executeQuery(sql);
+        await exec(sql);
         return console.log(`Dados inseridos na tabela ${name}`);
     } catch (error) {
         return console.error(
@@ -43,4 +47,4 @@ const insert_in_table = async (sql, name) => {
     }
 };
 
-module.exports = insert_values;
+export default insert_values;

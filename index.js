@@ -1,8 +1,8 @@
-require("@dotenvx/dotenvx").config();
-const express = require("express");
+import "@dotenvx/dotenvx/config";
+import express from "express";
+import init from "./src/main/init.js";
 const app = express();
 const PORT = process.env.PORT;
-const init = require("./src/main/init");
 
 (async () => {
     try {

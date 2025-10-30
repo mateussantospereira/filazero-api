@@ -7,4 +7,8 @@ const response = (status, error = null, message = null, data = null) => {
     };
 };
 
-module.exports = response;
+const returnResponse = (res, fields) => {
+    return res.status(fields.status).json(fields);
+};
+
+export { response, returnResponse };
