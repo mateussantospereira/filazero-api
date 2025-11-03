@@ -40,7 +40,7 @@ VALUES
 ("São Lucas Evangelista", "Isabel de Bragança", 180, "Imperador Pedro I", "17580-000", "Pompéia", "SP"),
 ("São Camilo de Léllis", "Carlos Frederico Lacerda", 197, "Presidente Prudente", "17580-000", "Pompéia", "SP");
 
-INSERT INTO fields (id_field, name, description)
+INSERT INTO fields (id, name, description)
 VALUES
 (1, "Acupuntura", "Aplica técnicas de estimulação de pontos específicos do corpo, como agulhas, para tratar doenças, aliviar dores e promover saúde, conforme princípios da medicina tradicional chinesa."),
 (2, "Alergia e Imunologia", "Diagnostica e trata doenças alérgicas e imunológicas, como asma, rinite e imunodeficiências, com foco em prevenção e manejo clínico."),
@@ -98,7 +98,7 @@ VALUES
 (54, "Urologia", "Trata doenças do sistema urinário e reprodutor masculino, como cálculos renais e câncer de próstata."),
 (55, "Medicina Paliativa", "Cuida de pacientes com doenças terminais, focando em alívio de sintomas e qualidade de vida.");
 
-INSERT INTO expedients (id_expedient, duration, description)
+INSERT INTO expedients (id, duration, description)
 VALUES
 (1, "00:01:00", "8 horas 1"),
 (2, "00:01:00", "8 horas 2"),

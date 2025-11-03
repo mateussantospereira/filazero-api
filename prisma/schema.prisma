@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/prisma"
+}
+
+generator zod {
+    provider = "zod-prisma-types"
+    output   = "../src/zod"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model appointments {
+  id            Int       @id @default(autoincrement())
+  email_doctor  String    @db.VarChar(100)
+  email_patient String    @db.VarChar(100)
+  date          DateTime  @db.Date
+  start         DateTime  @db.Time(0)
+  end           DateTime  @db.Time(0)
+  registered    DateTime? @default(now()) @db.DateTime(0)
+  doctors       doctors   @relation(fields: [email_doctor], references: [email], onDelete: Cascade, map: "appointments_ibfk_1")
+  registers     registers @relation(fields: [email_patient], references: [email], onDelete: Cascade, map: "appointments_ibfk_2")
+
+  @@unique([email_doctor, date, start], map: "email_doctor")
+  @@index([email_patient], map: "email_patient")
+}
+
+model doctors {
+  email        String         @id @db.VarChar(100)
+  id_field     Int
+  id_hospital  Int
+  id_expedient Int
+  first_day    DateTime       @default(dbgenerated("(curdate())")) @db.Date
+  appointments appointments[]
+  registers    registers      @relation(fields: [email], references: [email], onDelete: Cascade, map: "doctors_ibfk_1")
+  fields       fields         @relation(fields: [id_field], references: [id], onDelete: Cascade, map: "doctors_ibfk_2")
+  hospitals    hospitals      @relation(fields: [id_hospital], references: [id], onDelete: Cascade, map: "doctors_ibfk_3")
+  expedients   expedients     @relation(fields: [id_expedient], references: [id], onDelete: Cascade, map: "doctors_ibfk_4")
+
+  @@index([id_expedient], map: "id_expedient")
+  @@index([id_field], map: "id_field")
+  @@index([id_hospital], map: "id_hospital")
+}
+
+model expedients {
+  id          Int        @id @default(autoincrement())
+  duration    DateTime   @db.Time(0)
+  description String     @db.VarChar(100)
+  doctors     doctors[]
+  weekdays    weekdays[]
+}
+
+model fields {
+  id          Int       @id
+  name        String    @db.VarChar(50)
+  description String?   @db.VarChar(255)
+  doctors     doctors[]
+}
+
+model hospitals {
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(100)
+  street   String    @db.VarChar(100)
+  number   Int
+  district String    @db.VarChar(100)
+  cep      String    @db.Char(9)
+  city     String    @db.VarChar(100)
+  uf       String    @db.Char(2)
+  doctors  doctors[]
+}
+
+model registers {
+  name         String         @db.VarChar(100)
+  cpf          String         @unique(map: "cpf") @db.Char(14)
+  gender       String         @db.Char(1)
+  birth        DateTime       @db.Date
+  email        String         @id @db.VarChar(100)
+  password     String         @db.VarChar(200)
+  type         Int            @db.TinyInt
+  appointments appointments[]
+  doctors      doctors?
+}
+
+model weekdays {
+  id_expedient Int
+  weekday      String     @db.VarChar(13)
+  week         Int        @default(1)
+  start        DateTime   @db.Time(0)
+  end          DateTime   @db.Time(0)
+  break        DateTime?  @db.Time(0)
+  time_break   DateTime?  @db.Time(0)
+  expedients   expedients @relation(fields: [id_expedient], references: [id], onDelete: Cascade, map: "weekdays_ibfk_1")
+
+  @@id([id_expedient, weekday, week])
+}

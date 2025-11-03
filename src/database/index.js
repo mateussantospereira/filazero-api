@@ -3,7 +3,7 @@ import config from "./config.js";
 import exec from "./exec.js";
 import fs from "fs";
 
-const sqlPath = new URL("./sql/database.sql", import.meta.url);
+const sqlPath = new URL("./sql/tables.sql", import.meta.url);
 const sqlScript = fs.readFileSync(sqlPath, "utf8");
 
 class database {
