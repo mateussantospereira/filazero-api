@@ -9,12 +9,8 @@ class weekdaysService {
         return await prisma.weekdays.findMany();
     }
 
-    async findUnique(id_expedient) {
-        return await prisma.weekdays.findUnique({ where: { id_expedient } });
-    }
-
-    async update(id_expedient, data) {
-        return await prisma.weekdays.update({ where: { id_expedient }, data });
+    async findManyByExpedient(id_expedient) {
+        return await prisma.weekdays.findMany({ where: { id_expedient } });
     }
 
     async delete(id_expedient) {

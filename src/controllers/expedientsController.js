@@ -1,12 +1,13 @@
 import expedientsService from "../services/expedientsService.js";
 import response from "../utils/response.js";
 import handlePrismaError from "../utils/handlePrismaError.js";
+import timeToDate from "../utils/timeToDate.js";
 
 class expedientsController {
     async create(req, res) {
         try {
             const data = req.body;
-            data.duration = new Date(`1970-01-01T${data.duration}Z`);
+            data.duration = timeToDate(data.duration);
             await expedientsService.create(data);
             return response(res, 201, "Expediente criado com sucesso.");
         } catch (error) {
@@ -38,7 +39,7 @@ class expedientsController {
     async update(req, res) {
         try {
             const data = req.body;
-            data.duration = new Date(`1970-01-01T${data.duration}Z`);
+            data.duration = timeToDate(data.duration);
             const { id } = req.params;
             await expedientsService.update(Number(id), data);
             return response(res, 200, "Expediente alterado.");

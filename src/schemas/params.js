@@ -7,3 +7,7 @@ export const emailSchemaParams = z.object({
 export const idSchemaParams = z.object({
     id: z.coerce.number().int().positive(),
 });
+
+export const weekdaysSchemaParams = z.object({
+    id_expedient: z.coerce.number().int().positive(),
+});

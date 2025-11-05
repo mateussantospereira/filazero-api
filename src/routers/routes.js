@@ -15,7 +15,11 @@ import { registersSchema } from "../zod/index.ts";
 import { weekdaysSchema } from "../zod/index.ts";
 import zodValidatorBody from "../middlewares/zodValidatorBody.js";
 import zodValidatorParams from "../middlewares/zodValidatorParams.js";
-import { emailSchemaParams, idSchemaParams } from "../schemas/params.js";
+import {
+    emailSchemaParams,
+    idSchemaParams,
+    weekdaysSchemaParams,
+} from "../schemas/params.js";
 import { z } from "zod";
 
 const router = Router();
@@ -167,12 +171,15 @@ router.post(
     weekdaysController.create
 );
 router.get("/weekdays", weekdaysController.findMany);
-router.get("/weekdays/:email", weekdaysController.findUnique);
-router.put(
-    "/weekdays/:email",
-    zodValidatorBody(weekdaysSchema),
-    weekdaysController.update
+router.get(
+    "/weekdays/:id_expedient",
+    zodValidatorParams(weekdaysSchemaParams),
+    weekdaysController.findManyByExpedient
 );
-router.delete("/weekdays/:email", weekdaysController.delete);
+router.delete(
+    "/weekdays/:id_expedient",
+    zodValidatorParams(weekdaysSchemaParams),
+    weekdaysController.delete
+);
 
 export default router;

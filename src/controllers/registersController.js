@@ -19,6 +19,7 @@ class registersController {
             const registers = await registersService.findMany();
             return response(res, 200, "Registros listados.", registers);
         } catch (error) {
+            console.log(error);
             return handlePrismaError(res, error);
         }
     }
