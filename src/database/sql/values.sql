@@ -102,7 +102,7 @@ INSERT INTO expedients (id, duration, description)
 VALUES
 (1, "00:01:00", "8 horas 1"),
 (2, "00:01:00", "8 horas 2"),
-(3, "00:00:00", "6 horas 1"),
+(3, "00:01:00", "6 horas 1"),
 (4, "00:01:00", "12 horas 1"),
 (5, "00:01:00", "12 horas 2");
 

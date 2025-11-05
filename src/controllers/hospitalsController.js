@@ -25,8 +25,8 @@ class hospitalsController {
 
     async findUnique(req, res) {
         try {
-            const { email } = req.params;
-            const hospital = await hospitalsService.findUnique(email);
+            const { id } = req.params;
+            const hospital = await hospitalsService.findUnique(Number(id));
             if (!hospital)
                 return response(res, 400, "Hospital não encontrado.");
             return response(res, 200, "Hospital encontrado.", hospital);
@@ -38,8 +38,8 @@ class hospitalsController {
     async update(req, res) {
         try {
             const data = req.body;
-            const { email } = req.params;
-            await hospitalsService.update(email, data);
+            const { id } = req.params;
+            await hospitalsService.update(Number(id), data);
             return response(res, 200, "Hospital alterado.");
         } catch (error) {
             return handlePrismaError(res, error);
@@ -48,8 +48,8 @@ class hospitalsController {
 
     async delete(req, res) {
         try {
-            const { email } = req.params;
-            await hospitalsService.delete(email);
+            const { id } = req.params;
+            await hospitalsService.delete(Number(id));
             return response(res, 200, "Hospital deletado com êxito.");
         } catch (error) {
             return handlePrismaError(res, error);

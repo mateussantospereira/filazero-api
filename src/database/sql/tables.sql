@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS registers (
 );
 
 CREATE TABLE IF NOT EXISTS hospitals (
-    id INT NOT NULL
-        PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     street VARCHAR(100) NOT NULL,
     number INT NOT NULL,
@@ -22,21 +21,20 @@ CREATE TABLE IF NOT EXISTS hospitals (
 );
 
 CREATE TABLE IF NOT EXISTS fields (
-    id INT NOT NULL PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS expedients (
-    id INT NOT NULL
-        PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     duration TIME NOT NULL,
-    description VARCHAR(100) NOT NULL
+    description VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS weekdays (
     id_expedient INT NOT NULL,
-    weekday VARCHAR(13) NOT NULL
+    weekday INT NOT NULL
         CHECK (weekday IN (
             0, 1, 2, 3, 4, 5, 6
             /*
@@ -83,8 +81,7 @@ CREATE TABLE IF NOT EXISTS doctors (
 );
 
 CREATE TABLE IF NOT EXISTS appointments (
-    id INT NOT NULL
-        PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     email_doctor VARCHAR(100) NOT NULL
         REFERENCES doctors(email)
         ON DELETE CASCADE

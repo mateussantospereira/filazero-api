@@ -169,7 +169,7 @@ export type expedientsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type ExpedientsGroupByOutputType = {
   id: number
   duration: Date
-  description: string
+  description: string | null
   _count: ExpedientsCountAggregateOutputType | null
   _avg: ExpedientsAvgAggregateOutputType | null
   _sum: ExpedientsSumAggregateOutputType | null
@@ -198,7 +198,7 @@ export type expedientsWhereInput = {
   NOT?: Prisma.expedientsWhereInput | Prisma.expedientsWhereInput[]
   id?: Prisma.IntFilter<"expedients"> | number
   duration?: Prisma.DateTimeFilter<"expedients"> | Date | string
-  description?: Prisma.StringFilter<"expedients"> | string
+  description?: Prisma.StringNullableFilter<"expedients"> | string | null
   doctors?: Prisma.DoctorsListRelationFilter
   weekdays?: Prisma.WeekdaysListRelationFilter
 }
@@ -206,7 +206,7 @@ export type expedientsWhereInput = {
 export type expedientsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   duration?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   doctors?: Prisma.doctorsOrderByRelationAggregateInput
   weekdays?: Prisma.weekdaysOrderByRelationAggregateInput
   _relevance?: Prisma.expedientsOrderByRelevanceInput
@@ -218,7 +218,7 @@ export type expedientsWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.expedientsWhereInput[]
   NOT?: Prisma.expedientsWhereInput | Prisma.expedientsWhereInput[]
   duration?: Prisma.DateTimeFilter<"expedients"> | Date | string
-  description?: Prisma.StringFilter<"expedients"> | string
+  description?: Prisma.StringNullableFilter<"expedients"> | string | null
   doctors?: Prisma.DoctorsListRelationFilter
   weekdays?: Prisma.WeekdaysListRelationFilter
 }, "id">
@@ -226,7 +226,7 @@ export type expedientsWhereUniqueInput = Prisma.AtLeast<{
 export type expedientsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   duration?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.expedientsCountOrderByAggregateInput
   _avg?: Prisma.expedientsAvgOrderByAggregateInput
   _max?: Prisma.expedientsMaxOrderByAggregateInput
@@ -240,12 +240,12 @@ export type expedientsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.expedientsScalarWhereWithAggregatesInput | Prisma.expedientsScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"expedients"> | number
   duration?: Prisma.DateTimeWithAggregatesFilter<"expedients"> | Date | string
-  description?: Prisma.StringWithAggregatesFilter<"expedients"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"expedients"> | string | null
 }
 
 export type expedientsCreateInput = {
   duration: Date | string
-  description: string
+  description?: string | null
   doctors?: Prisma.doctorsCreateNestedManyWithoutExpedientsInput
   weekdays?: Prisma.weekdaysCreateNestedManyWithoutExpedientsInput
 }
@@ -253,14 +253,14 @@ export type expedientsCreateInput = {
 export type expedientsUncheckedCreateInput = {
   id?: number
   duration: Date | string
-  description: string
+  description?: string | null
   doctors?: Prisma.doctorsUncheckedCreateNestedManyWithoutExpedientsInput
   weekdays?: Prisma.weekdaysUncheckedCreateNestedManyWithoutExpedientsInput
 }
 
 export type expedientsUpdateInput = {
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   doctors?: Prisma.doctorsUpdateManyWithoutExpedientsNestedInput
   weekdays?: Prisma.weekdaysUpdateManyWithoutExpedientsNestedInput
 }
@@ -268,7 +268,7 @@ export type expedientsUpdateInput = {
 export type expedientsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   doctors?: Prisma.doctorsUncheckedUpdateManyWithoutExpedientsNestedInput
   weekdays?: Prisma.weekdaysUncheckedUpdateManyWithoutExpedientsNestedInput
 }
@@ -276,18 +276,18 @@ export type expedientsUncheckedUpdateInput = {
 export type expedientsCreateManyInput = {
   id?: number
   duration: Date | string
-  description: string
+  description?: string | null
 }
 
 export type expedientsUpdateManyMutationInput = {
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type expedientsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ExpedientsScalarRelationFilter = {
@@ -341,6 +341,10 @@ export type expedientsUpdateOneRequiredWithoutDoctorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.expedientsUpdateToOneWithWhereWithoutDoctorsInput, Prisma.expedientsUpdateWithoutDoctorsInput>, Prisma.expedientsUncheckedUpdateWithoutDoctorsInput>
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type expedientsCreateNestedOneWithoutWeekdaysInput = {
   create?: Prisma.XOR<Prisma.expedientsCreateWithoutWeekdaysInput, Prisma.expedientsUncheckedCreateWithoutWeekdaysInput>
   connectOrCreate?: Prisma.expedientsCreateOrConnectWithoutWeekdaysInput
@@ -357,14 +361,14 @@ export type expedientsUpdateOneRequiredWithoutWeekdaysNestedInput = {
 
 export type expedientsCreateWithoutDoctorsInput = {
   duration: Date | string
-  description: string
+  description?: string | null
   weekdays?: Prisma.weekdaysCreateNestedManyWithoutExpedientsInput
 }
 
 export type expedientsUncheckedCreateWithoutDoctorsInput = {
   id?: number
   duration: Date | string
-  description: string
+  description?: string | null
   weekdays?: Prisma.weekdaysUncheckedCreateNestedManyWithoutExpedientsInput
 }
 
@@ -386,27 +390,27 @@ export type expedientsUpdateToOneWithWhereWithoutDoctorsInput = {
 
 export type expedientsUpdateWithoutDoctorsInput = {
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekdays?: Prisma.weekdaysUpdateManyWithoutExpedientsNestedInput
 }
 
 export type expedientsUncheckedUpdateWithoutDoctorsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekdays?: Prisma.weekdaysUncheckedUpdateManyWithoutExpedientsNestedInput
 }
 
 export type expedientsCreateWithoutWeekdaysInput = {
   duration: Date | string
-  description: string
+  description?: string | null
   doctors?: Prisma.doctorsCreateNestedManyWithoutExpedientsInput
 }
 
 export type expedientsUncheckedCreateWithoutWeekdaysInput = {
   id?: number
   duration: Date | string
-  description: string
+  description?: string | null
   doctors?: Prisma.doctorsUncheckedCreateNestedManyWithoutExpedientsInput
 }
 
@@ -428,14 +432,14 @@ export type expedientsUpdateToOneWithWhereWithoutWeekdaysInput = {
 
 export type expedientsUpdateWithoutWeekdaysInput = {
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   doctors?: Prisma.doctorsUpdateManyWithoutExpedientsNestedInput
 }
 
 export type expedientsUncheckedUpdateWithoutWeekdaysInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   duration?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   doctors?: Prisma.doctorsUncheckedUpdateManyWithoutExpedientsNestedInput
 }
 
@@ -512,7 +516,7 @@ export type $expedientsPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     duration: Date
-    description: string
+    description: string | null
   }, ExtArgs["result"]["expedients"]>
   composites: {}
 }

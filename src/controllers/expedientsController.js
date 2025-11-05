@@ -6,10 +6,10 @@ class expedientsController {
     async create(req, res) {
         try {
             const data = req.body;
+            data.duration = new Date(`1970-01-01T${data.duration}Z`);
             await expedientsService.create(data);
             return response(res, 201, "Expediente criado com sucesso.");
         } catch (error) {
-            console.log(error);
             return handlePrismaError(res, error);
         }
     }
@@ -26,7 +26,7 @@ class expedientsController {
     async findUnique(req, res) {
         try {
             const { id } = req.params;
-            const expedient = await expedientsService.findUnique(id);
+            const expedient = await expedientsService.findUnique(Number(id));
             if (!expedient)
                 return response(res, 400, "Expediente não encontrado.");
             return response(res, 200, "Expediente encontrado.", expedient);
@@ -38,8 +38,9 @@ class expedientsController {
     async update(req, res) {
         try {
             const data = req.body;
+            data.duration = new Date(`1970-01-01T${data.duration}Z`);
             const { id } = req.params;
-            await expedientsService.update(id, data);
+            await expedientsService.update(Number(id), data);
             return response(res, 200, "Expediente alterado.");
         } catch (error) {
             return handlePrismaError(res, error);
@@ -49,7 +50,7 @@ class expedientsController {
     async delete(req, res) {
         try {
             const { id } = req.params;
-            await expedientsService.delete(id);
+            await expedientsService.delete(Number(id));
             return response(res, 200, "Expediente deletado com êxito.");
         } catch (error) {
             return handlePrismaError(res, error);

@@ -223,10 +223,3 @@ export const registersOrderByRelevanceFieldEnum = {
 
 export type registersOrderByRelevanceFieldEnum = (typeof registersOrderByRelevanceFieldEnum)[keyof typeof registersOrderByRelevanceFieldEnum]
 
-
-export const weekdaysOrderByRelevanceFieldEnum = {
-  weekday: 'weekday'
-} as const
-
-export type weekdaysOrderByRelevanceFieldEnum = (typeof weekdaysOrderByRelevanceFieldEnum)[keyof typeof weekdaysOrderByRelevanceFieldEnum]
-

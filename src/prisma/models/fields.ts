@@ -241,21 +241,19 @@ export type fieldsScalarWhereWithAggregatesInput = {
 }
 
 export type fieldsCreateInput = {
-  id: number
   name: string
   description?: string | null
   doctors?: Prisma.doctorsCreateNestedManyWithoutFieldsInput
 }
 
 export type fieldsUncheckedCreateInput = {
-  id: number
+  id?: number
   name: string
   description?: string | null
   doctors?: Prisma.doctorsUncheckedCreateNestedManyWithoutFieldsInput
 }
 
 export type fieldsUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   doctors?: Prisma.doctorsUpdateManyWithoutFieldsNestedInput
@@ -269,13 +267,12 @@ export type fieldsUncheckedUpdateInput = {
 }
 
 export type fieldsCreateManyInput = {
-  id: number
+  id?: number
   name: string
   description?: string | null
 }
 
 export type fieldsUpdateManyMutationInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -337,18 +334,13 @@ export type fieldsUpdateOneRequiredWithoutDoctorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.fieldsUpdateToOneWithWhereWithoutDoctorsInput, Prisma.fieldsUpdateWithoutDoctorsInput>, Prisma.fieldsUncheckedUpdateWithoutDoctorsInput>
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type fieldsCreateWithoutDoctorsInput = {
-  id: number
   name: string
   description?: string | null
 }
 
 export type fieldsUncheckedCreateWithoutDoctorsInput = {
-  id: number
+  id?: number
   name: string
   description?: string | null
 }
@@ -370,7 +362,6 @@ export type fieldsUpdateToOneWithWhereWithoutDoctorsInput = {
 }
 
 export type fieldsUpdateWithoutDoctorsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }

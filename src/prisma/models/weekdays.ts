@@ -27,17 +27,19 @@ export type AggregateWeekdays = {
 
 export type WeekdaysAvgAggregateOutputType = {
   id_expedient: number | null
+  weekday: number | null
   week: number | null
 }
 
 export type WeekdaysSumAggregateOutputType = {
   id_expedient: number | null
+  weekday: number | null
   week: number | null
 }
 
 export type WeekdaysMinAggregateOutputType = {
   id_expedient: number | null
-  weekday: string | null
+  weekday: number | null
   week: number | null
   start: Date | null
   end: Date | null
@@ -47,7 +49,7 @@ export type WeekdaysMinAggregateOutputType = {
 
 export type WeekdaysMaxAggregateOutputType = {
   id_expedient: number | null
-  weekday: string | null
+  weekday: number | null
   week: number | null
   start: Date | null
   end: Date | null
@@ -69,11 +71,13 @@ export type WeekdaysCountAggregateOutputType = {
 
 export type WeekdaysAvgAggregateInputType = {
   id_expedient?: true
+  weekday?: true
   week?: true
 }
 
 export type WeekdaysSumAggregateInputType = {
   id_expedient?: true
+  weekday?: true
   week?: true
 }
 
@@ -196,7 +200,7 @@ export type weekdaysGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type WeekdaysGroupByOutputType = {
   id_expedient: number
-  weekday: string
+  weekday: number
   week: number
   start: Date
   end: Date
@@ -229,7 +233,7 @@ export type weekdaysWhereInput = {
   OR?: Prisma.weekdaysWhereInput[]
   NOT?: Prisma.weekdaysWhereInput | Prisma.weekdaysWhereInput[]
   id_expedient?: Prisma.IntFilter<"weekdays"> | number
-  weekday?: Prisma.StringFilter<"weekdays"> | string
+  weekday?: Prisma.IntFilter<"weekdays"> | number
   week?: Prisma.IntFilter<"weekdays"> | number
   start?: Prisma.DateTimeFilter<"weekdays"> | Date | string
   end?: Prisma.DateTimeFilter<"weekdays"> | Date | string
@@ -247,7 +251,6 @@ export type weekdaysOrderByWithRelationInput = {
   break?: Prisma.SortOrderInput | Prisma.SortOrder
   time_break?: Prisma.SortOrderInput | Prisma.SortOrder
   expedients?: Prisma.expedientsOrderByWithRelationInput
-  _relevance?: Prisma.weekdaysOrderByRelevanceInput
 }
 
 export type weekdaysWhereUniqueInput = Prisma.AtLeast<{
@@ -256,7 +259,7 @@ export type weekdaysWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.weekdaysWhereInput[]
   NOT?: Prisma.weekdaysWhereInput | Prisma.weekdaysWhereInput[]
   id_expedient?: Prisma.IntFilter<"weekdays"> | number
-  weekday?: Prisma.StringFilter<"weekdays"> | string
+  weekday?: Prisma.IntFilter<"weekdays"> | number
   week?: Prisma.IntFilter<"weekdays"> | number
   start?: Prisma.DateTimeFilter<"weekdays"> | Date | string
   end?: Prisma.DateTimeFilter<"weekdays"> | Date | string
@@ -285,7 +288,7 @@ export type weekdaysScalarWhereWithAggregatesInput = {
   OR?: Prisma.weekdaysScalarWhereWithAggregatesInput[]
   NOT?: Prisma.weekdaysScalarWhereWithAggregatesInput | Prisma.weekdaysScalarWhereWithAggregatesInput[]
   id_expedient?: Prisma.IntWithAggregatesFilter<"weekdays"> | number
-  weekday?: Prisma.StringWithAggregatesFilter<"weekdays"> | string
+  weekday?: Prisma.IntWithAggregatesFilter<"weekdays"> | number
   week?: Prisma.IntWithAggregatesFilter<"weekdays"> | number
   start?: Prisma.DateTimeWithAggregatesFilter<"weekdays"> | Date | string
   end?: Prisma.DateTimeWithAggregatesFilter<"weekdays"> | Date | string
@@ -294,7 +297,7 @@ export type weekdaysScalarWhereWithAggregatesInput = {
 }
 
 export type weekdaysCreateInput = {
-  weekday: string
+  weekday: number
   week?: number
   start: Date | string
   end: Date | string
@@ -305,7 +308,7 @@ export type weekdaysCreateInput = {
 
 export type weekdaysUncheckedCreateInput = {
   id_expedient: number
-  weekday: string
+  weekday: number
   week?: number
   start: Date | string
   end: Date | string
@@ -314,7 +317,7 @@ export type weekdaysUncheckedCreateInput = {
 }
 
 export type weekdaysUpdateInput = {
-  weekday?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
   week?: Prisma.IntFieldUpdateOperationsInput | number
   start?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -325,7 +328,7 @@ export type weekdaysUpdateInput = {
 
 export type weekdaysUncheckedUpdateInput = {
   id_expedient?: Prisma.IntFieldUpdateOperationsInput | number
-  weekday?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
   week?: Prisma.IntFieldUpdateOperationsInput | number
   start?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -335,7 +338,7 @@ export type weekdaysUncheckedUpdateInput = {
 
 export type weekdaysCreateManyInput = {
   id_expedient: number
-  weekday: string
+  weekday: number
   week?: number
   start: Date | string
   end: Date | string
@@ -344,7 +347,7 @@ export type weekdaysCreateManyInput = {
 }
 
 export type weekdaysUpdateManyMutationInput = {
-  weekday?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
   week?: Prisma.IntFieldUpdateOperationsInput | number
   start?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,7 +357,7 @@ export type weekdaysUpdateManyMutationInput = {
 
 export type weekdaysUncheckedUpdateManyInput = {
   id_expedient?: Prisma.IntFieldUpdateOperationsInput | number
-  weekday?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
   week?: Prisma.IntFieldUpdateOperationsInput | number
   start?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -372,15 +375,9 @@ export type weekdaysOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type weekdaysOrderByRelevanceInput = {
-  fields: Prisma.weekdaysOrderByRelevanceFieldEnum | Prisma.weekdaysOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
-}
-
 export type weekdaysId_expedientWeekdayWeekCompoundUniqueInput = {
   id_expedient: number
-  weekday: string
+  weekday: number
   week: number
 }
 
@@ -396,6 +393,7 @@ export type weekdaysCountOrderByAggregateInput = {
 
 export type weekdaysAvgOrderByAggregateInput = {
   id_expedient?: Prisma.SortOrder
+  weekday?: Prisma.SortOrder
   week?: Prisma.SortOrder
 }
 
@@ -421,6 +419,7 @@ export type weekdaysMinOrderByAggregateInput = {
 
 export type weekdaysSumOrderByAggregateInput = {
   id_expedient?: Prisma.SortOrder
+  weekday?: Prisma.SortOrder
   week?: Prisma.SortOrder
 }
 
@@ -467,7 +466,7 @@ export type weekdaysUncheckedUpdateManyWithoutExpedientsNestedInput = {
 }
 
 export type weekdaysCreateWithoutExpedientsInput = {
-  weekday: string
+  weekday: number
   week?: number
   start: Date | string
   end: Date | string
@@ -476,7 +475,7 @@ export type weekdaysCreateWithoutExpedientsInput = {
 }
 
 export type weekdaysUncheckedCreateWithoutExpedientsInput = {
-  weekday: string
+  weekday: number
   week?: number
   start: Date | string
   end: Date | string
@@ -515,7 +514,7 @@ export type weekdaysScalarWhereInput = {
   OR?: Prisma.weekdaysScalarWhereInput[]
   NOT?: Prisma.weekdaysScalarWhereInput | Prisma.weekdaysScalarWhereInput[]
   id_expedient?: Prisma.IntFilter<"weekdays"> | number
-  weekday?: Prisma.StringFilter<"weekdays"> | string
+  weekday?: Prisma.IntFilter<"weekdays"> | number
   week?: Prisma.IntFilter<"weekdays"> | number
   start?: Prisma.DateTimeFilter<"weekdays"> | Date | string
   end?: Prisma.DateTimeFilter<"weekdays"> | Date | string
@@ -524,7 +523,7 @@ export type weekdaysScalarWhereInput = {
 }
 
 export type weekdaysCreateManyExpedientsInput = {
-  weekday: string
+  weekday: number
   week?: number
   start: Date | string
   end: Date | string
@@ -533,7 +532,7 @@ export type weekdaysCreateManyExpedientsInput = {
 }
 
 export type weekdaysUpdateWithoutExpedientsInput = {
-  weekday?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
   week?: Prisma.IntFieldUpdateOperationsInput | number
   start?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -542,7 +541,7 @@ export type weekdaysUpdateWithoutExpedientsInput = {
 }
 
 export type weekdaysUncheckedUpdateWithoutExpedientsInput = {
-  weekday?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
   week?: Prisma.IntFieldUpdateOperationsInput | number
   start?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -551,7 +550,7 @@ export type weekdaysUncheckedUpdateWithoutExpedientsInput = {
 }
 
 export type weekdaysUncheckedUpdateManyWithoutExpedientsInput = {
-  weekday?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
   week?: Prisma.IntFieldUpdateOperationsInput | number
   start?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -596,7 +595,7 @@ export type $weekdaysPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_expedient: number
-    weekday: string
+    weekday: number
     week: number
     start: Date
     end: Date
@@ -973,7 +972,7 @@ export interface Prisma__weekdaysClient<T, Null = never, ExtArgs extends runtime
  */
 export interface weekdaysFieldRefs {
   readonly id_expedient: Prisma.FieldRef<"weekdays", 'Int'>
-  readonly weekday: Prisma.FieldRef<"weekdays", 'String'>
+  readonly weekday: Prisma.FieldRef<"weekdays", 'Int'>
   readonly week: Prisma.FieldRef<"weekdays", 'Int'>
   readonly start: Prisma.FieldRef<"weekdays", 'DateTime'>
   readonly end: Prisma.FieldRef<"weekdays", 'DateTime'>

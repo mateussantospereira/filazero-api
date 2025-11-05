@@ -9,16 +9,16 @@ class weekdaysService {
         return await prisma.weekdays.findMany();
     }
 
-    async findUnique(email) {
-        return await prisma.weekdays.findUnique({ where: { email } });
+    async findUnique(id_expedient) {
+        return await prisma.weekdays.findUnique({ where: { id_expedient } });
     }
 
-    async update(email, data) {
-        return await prisma.weekdays.update({ where: { email }, data });
+    async update(id_expedient, data) {
+        return await prisma.weekdays.update({ where: { id_expedient }, data });
     }
 
-    async delete(email) {
-        return await prisma.weekdays.delete({ where: { email } });
+    async delete(id_expedient) {
+        return await prisma.weekdays.delete({ where: { id_expedient } });
     }
 }
 

@@ -1,15 +1,14 @@
 import { z } from "zod";
-import { pt } from "zod/locales";
 
-const zodValidator = (schema) => (req, res, next) => {
+const zodValidator = (schema, data, req, res, next) => {
     try {
-        req.body = schema.parse(req.body, { errorMap: pt });
+        req.body = schema.parse(data);
         next();
     } catch (error) {
         if (error instanceof z.ZodError) {
             return res.status(400).json({
                 message: "Erro de validação",
-                errors: error.issues(),
+                errors: z.flattenError(error),
             });
         }
 

@@ -3,11 +3,6 @@ generator client {
   output   = "../src/prisma"
 }
 
-generator zod {
-    provider = "zod-prisma-types"
-    output   = "../src/zod"
-}
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -48,13 +43,13 @@ model doctors {
 model expedients {
   id          Int        @id @default(autoincrement())
   duration    DateTime   @db.Time(0)
-  description String     @db.VarChar(100)
+  description String?    @db.VarChar(100)
   doctors     doctors[]
   weekdays    weekdays[]
 }
 
 model fields {
-  id          Int       @id
+  id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(50)
   description String?   @db.VarChar(255)
   doctors     doctors[]
@@ -86,7 +81,7 @@ model registers {
 
 model weekdays {
   id_expedient Int
-  weekday      String     @db.VarChar(13)
+  weekday      Int
   week         Int        @default(1)
   start        DateTime   @db.Time(0)
   end          DateTime   @db.Time(0)
