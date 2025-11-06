@@ -182,6 +182,16 @@ router.get(
     zodValidatorParams(weekdaysSchemaParams),
     weekdaysController.findUnique
 );
+router.put(
+    "/weekdays",
+    zodValidatorBody(z.array(weekdaysSchema)),
+    weekdaysController.update
+);
+router.delete(
+    "/weekdays/:id_expedient",
+    zodValidatorParams(idExpedientSchemaParams),
+    weekdaysController.deleteByExpedient
+);
 router.delete(
     "/weekdays/:id_expedient/:weekday/:week",
     zodValidatorParams(weekdaysSchemaParams),

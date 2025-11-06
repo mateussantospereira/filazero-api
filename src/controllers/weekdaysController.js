@@ -2,15 +2,15 @@ import weekdaysService from "../services/weekdaysService.js";
 import response from "../utils/response.js";
 import handlePrismaError from "../utils/handlePrismaError.js";
 import weekdaysFormatTime from "../utils/weekdaysFormatTime.js";
+import weekdayNumberParams from "../utils/weekdayNumberParams.js";
 
 class weekdaysController {
     async createMany(req, res) {
         try {
             const data = weekdaysFormatTime(req.body);
             await weekdaysService.createMany(data);
-            return response(res, 201, "Dias da semana criado com sucesso.");
+            return response(res, 201, "Dias da semana criados com sucesso.");
         } catch (error) {
-            console.log(error);
             return handlePrismaError(res, error);
         }
     }
@@ -20,7 +20,6 @@ class weekdaysController {
             const weekdays = await weekdaysService.findMany();
             return response(res, 200, "Dias da semana listados.", weekdays);
         } catch (error) {
-            console.log(error);
             return handlePrismaError(res, error);
         }
     }
@@ -31,23 +30,18 @@ class weekdaysController {
             const weekday = await weekdaysService.findManyByExpedient(
                 Number(id_expedient)
             );
-            if (!weekday)
-                return response(res, 400, "Dias da semana não encontrado.");
-            return response(res, 200, "Dias da semana encontrado.", weekday);
+            if (!weekday[0])
+                return response(res, 400, "Dias da semana não encontrados.");
+            return response(res, 200, "Dias da semana encontrados.", weekday);
         } catch (error) {
-            console.log(error);
             return handlePrismaError(res, error);
         }
     }
 
     async findUnique(req, res) {
         try {
-            const { id_expedient, weekday, week } = req.params;
-            const data = await weekdaysService.findUnique(
-                Number(id_expedient),
-                Number(weekday),
-                Number(week)
-            );
+            const params = weekdayNumberParams(req.params);
+            const data = await weekdaysService.findUnique(params);
             if (!data)
                 return response(res, 400, "Dia da semana não encontrado.");
             return response(res, 200, "Dia da semana encontrado.", data);
@@ -56,14 +50,33 @@ class weekdaysController {
         }
     }
 
+    async update(req, res) {
+        try {
+            const data = weekdaysFormatTime(req.body);
+            for (const weekday of data) {
+                await weekdaysService.update(weekday, weekday);
+            }
+            return response(res, 200, "Dias da semana alterados.");
+        } catch (error) {
+            console.log(error);
+            return handlePrismaError(res, error);
+        }
+    }
+
+    async deleteByExpedient(req, res) {
+        try {
+            const { id_expedient } = req.params;
+            await weekdaysService.deleteByExpedient(Number(id_expedient));
+            return response(res, 200, "Dias da semana deletados com êxito.");
+        } catch (error) {
+            return handlePrismaError(res, error);
+        }
+    }
+
     async delete(req, res) {
         try {
-            const { id_expedient, weekday, week } = req.params;
-            await weekdaysService.delete(
-                Number(id_expedient),
-                Number(weekday),
-                Number(week)
-            );
+            const params = weekdayNumberParams(req.params);
+            await weekdaysService.delete(params);
             return response(res, 200, "Dia da semana deletado com êxito.");
         } catch (error) {
             return handlePrismaError(res, error);

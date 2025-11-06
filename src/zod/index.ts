@@ -213,7 +213,7 @@ export type registers = z.infer<typeof registersSchema>;
 export const weekdaysSchema = z.object({
     id_expedient: z.number().int(),
     weekday: z.number().int(),
-    week: z.number().int().nullish(),
+    week: z.number().int().nullish().default(1),
     start: z.iso.time(),
     end: z.iso.time(),
     break: z.iso.time().nullish(),
