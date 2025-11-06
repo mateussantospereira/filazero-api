@@ -4,19 +4,19 @@ const handlePrismaError = (res, error) => {
     const errors = (error) => {
         switch (error.code) {
             case "P2000":
-                return `Valor muito longo para o campo: ${error.meta.target}.`;
+                return `Valor muito longo para o campo: ${error.meta.column_name}.`;
             case "P2001":
                 return `Registro não encontrado no banco de dados.`;
             case "P2002":
                 return `Já existe um registro com os mesmos campos.`;
             case "P2003":
-                return `Dado inválido, o campo ${error.meta.target} não corresponde a um registro existente.`;
+                return `Dado inválido, o campo ${error.meta.constraint} não corresponde a um registro existente.`;
             case "P2006":
                 return `Campo inválido.`;
             case "P2007":
-                return `Campo obrigatório não fornecido: ${error.meta.target}.`;
+                return `Campo obrigatório não fornecido: ${error.meta.constraint}.`;
             case "P2014":
-                return `Falha de chave estrangeira: ${error.meta.target}.`;
+                return `Falha de chave estrangeira: ${error.meta.constraint}.`;
             case "P2025":
                 return `Registro não encontrado para operação.`;
             default:

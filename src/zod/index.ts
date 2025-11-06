@@ -125,8 +125,8 @@ export const weekdaysOrderByRelevanceFieldEnumSchema = z.enum(["weekday"]);
 
 export const appointmentsSchema = z.object({
     id: z.number().int().nullish(),
-    email_doctor: z.string(),
-    email_patient: z.string(),
+    email_doctor: z.email(),
+    email_patient: z.email(),
     date: z.coerce.date(),
     start: z.coerce.date(),
     end: z.coerce.date(),
@@ -140,7 +140,7 @@ export type appointments = z.infer<typeof appointmentsSchema>;
 /////////////////////////////////////////
 
 export const doctorsSchema = z.object({
-    email: z.string(),
+    email: z.email(),
     id_field: z.number().int(),
     id_hospital: z.number().int(),
     id_expedient: z.number().int(),
@@ -199,7 +199,7 @@ export const registersSchema = z.object({
     cpf: z.string(),
     gender: z.string(),
     birth: z.coerce.date(),
-    email: z.string(),
+    email: z.email(),
     password: z.string(),
     type: z.number().int(),
 });
