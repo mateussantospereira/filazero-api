@@ -144,7 +144,7 @@ export const doctorsSchema = z.object({
     id_field: z.number().int(),
     id_hospital: z.number().int(),
     id_expedient: z.number().int(),
-    first_day: z.coerce.date(),
+    first_day: z.coerce.date().nullish(),
 });
 
 export type doctors = z.infer<typeof doctorsSchema>;
