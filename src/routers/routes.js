@@ -17,6 +17,7 @@ import zodValidatorBody from "../middlewares/zodValidatorBody.js";
 import zodValidatorParams from "../middlewares/zodValidatorParams.js";
 import {
     emailSchemaParams,
+    idExpedientSchemaParams,
     idSchemaParams,
     weekdaysSchemaParams,
 } from "../schemas/params.js";
@@ -168,16 +169,21 @@ router.delete(
 router.post(
     "/weekdays",
     zodValidatorBody(z.array(weekdaysSchema)),
-    weekdaysController.create
+    weekdaysController.createMany
 );
 router.get("/weekdays", weekdaysController.findMany);
 router.get(
     "/weekdays/:id_expedient",
-    zodValidatorParams(weekdaysSchemaParams),
+    zodValidatorParams(idExpedientSchemaParams),
     weekdaysController.findManyByExpedient
 );
+router.get(
+    "/weekdays/:id_expedient/:weekday/:week",
+    zodValidatorParams(weekdaysSchemaParams),
+    weekdaysController.findUnique
+);
 router.delete(
-    "/weekdays/:id_expedient",
+    "/weekdays/:id_expedient/:weekday/:week",
     zodValidatorParams(weekdaysSchemaParams),
     weekdaysController.delete
 );
