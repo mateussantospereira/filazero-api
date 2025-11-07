@@ -128,9 +128,7 @@ export const appointmentsSchema = z.object({
     email_doctor: z.email(),
     email_patient: z.email(),
     date: z.coerce.date(),
-    start: z.coerce.date(),
-    end: z.coerce.date(),
-    registered: z.coerce.date().nullable(),
+    hour: z.iso.time(),
 });
 
 export type appointments = z.infer<typeof appointmentsSchema>;

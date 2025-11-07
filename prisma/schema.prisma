@@ -13,13 +13,12 @@ model appointments {
   email_doctor  String    @db.VarChar(100)
   email_patient String    @db.VarChar(100)
   date          DateTime  @db.Date
-  start         DateTime  @db.Time(0)
-  end           DateTime  @db.Time(0)
+  hour          DateTime  @db.Time(0)
   registered    DateTime? @default(now()) @db.DateTime(0)
   doctors       doctors   @relation(fields: [email_doctor], references: [email], onDelete: Cascade, map: "appointments_ibfk_1")
   registers     registers @relation(fields: [email_patient], references: [email], onDelete: Cascade, map: "appointments_ibfk_2")
 
-  @@unique([email_doctor, date, start], map: "email_doctor")
+  @@unique([email_doctor, date, hour], map: "email_doctor")
   @@index([email_patient], map: "email_patient")
 }
 

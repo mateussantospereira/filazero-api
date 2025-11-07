@@ -90,9 +90,7 @@ CREATE TABLE IF NOT EXISTS appointments (
         REFERENCES registers(email)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    date DATE NOT NULL,
-    start TIME NOT NULL,
-    end TIME NOT NULL,
+    date DATETIME NOT NULL,
     registered DATETIME DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE (email_doctor, date, start)
+    UNIQUE (email_doctor, date)
 );

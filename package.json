@@ -6,7 +6,7 @@
     },
     "dependencies": {
         "@dotenvx/dotenvx": "^1.50.0",
-        "@prisma/client": "^6.18.0",
+        "@prisma/client": "^6.19.0",
         "cors": "^2.8.5",
         "dotenv": "^17.2.2",
         "express": "^5.1.0",
@@ -15,6 +15,7 @@
         "zod": "^4.1.12"
     },
     "devDependencies": {
+        "prisma": "^6.19.0",
         "typescript": "^5.9.3",
         "zod-prisma-types": "^3.3.5"
     }
