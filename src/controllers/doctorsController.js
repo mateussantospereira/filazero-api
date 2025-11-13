@@ -27,10 +27,23 @@ class doctorsController {
         try {
             const { email } = req.params;
             const doctor = await doctorsService.findUnique(email);
-            if (!doctor)
-                return response(res, 400, "Médico não encontrado.");
+            if (!doctor) return response(res, 400, "Médico não encontrado.");
             return response(res, 200, "Médico encontrado.", doctor);
         } catch (error) {
+            return handlePrismaError(res, error);
+        }
+    }
+
+    async availability(req, res) {
+        try {
+            const { email } = req.params;
+            const avail = await doctorsService.availability(email);
+            if (!avail) return response(res, 400, "Médico não encontrado.");
+            if (!avail[0])
+                return response(res, 400, "Erro ao tentar buscar horários.");
+            return response(res, 200, "Horários disponíveis.", avail);
+        } catch (error) {
+            console.log(error);
             return handlePrismaError(res, error);
         }
     }

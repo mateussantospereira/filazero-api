@@ -39,7 +39,6 @@ export type AppointmentsMinAggregateOutputType = {
   email_doctor: string | null
   email_patient: string | null
   date: Date | null
-  hour: Date | null
   registered: Date | null
 }
 
@@ -48,7 +47,6 @@ export type AppointmentsMaxAggregateOutputType = {
   email_doctor: string | null
   email_patient: string | null
   date: Date | null
-  hour: Date | null
   registered: Date | null
 }
 
@@ -57,7 +55,6 @@ export type AppointmentsCountAggregateOutputType = {
   email_doctor: number
   email_patient: number
   date: number
-  hour: number
   registered: number
   _all: number
 }
@@ -76,7 +73,6 @@ export type AppointmentsMinAggregateInputType = {
   email_doctor?: true
   email_patient?: true
   date?: true
-  hour?: true
   registered?: true
 }
 
@@ -85,7 +81,6 @@ export type AppointmentsMaxAggregateInputType = {
   email_doctor?: true
   email_patient?: true
   date?: true
-  hour?: true
   registered?: true
 }
 
@@ -94,7 +89,6 @@ export type AppointmentsCountAggregateInputType = {
   email_doctor?: true
   email_patient?: true
   date?: true
-  hour?: true
   registered?: true
   _all?: true
 }
@@ -190,7 +184,6 @@ export type AppointmentsGroupByOutputType = {
   email_doctor: string
   email_patient: string
   date: Date
-  hour: Date
   registered: Date | null
   _count: AppointmentsCountAggregateOutputType | null
   _avg: AppointmentsAvgAggregateOutputType | null
@@ -222,7 +215,6 @@ export type appointmentsWhereInput = {
   email_doctor?: Prisma.StringFilter<"appointments"> | string
   email_patient?: Prisma.StringFilter<"appointments"> | string
   date?: Prisma.DateTimeFilter<"appointments"> | Date | string
-  hour?: Prisma.DateTimeFilter<"appointments"> | Date | string
   registered?: Prisma.DateTimeNullableFilter<"appointments"> | Date | string | null
   doctors?: Prisma.XOR<Prisma.DoctorsScalarRelationFilter, Prisma.doctorsWhereInput>
   registers?: Prisma.XOR<Prisma.RegistersScalarRelationFilter, Prisma.registersWhereInput>
@@ -233,7 +225,6 @@ export type appointmentsOrderByWithRelationInput = {
   email_doctor?: Prisma.SortOrder
   email_patient?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  hour?: Prisma.SortOrder
   registered?: Prisma.SortOrderInput | Prisma.SortOrder
   doctors?: Prisma.doctorsOrderByWithRelationInput
   registers?: Prisma.registersOrderByWithRelationInput
@@ -242,25 +233,23 @@ export type appointmentsOrderByWithRelationInput = {
 
 export type appointmentsWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  email_doctor_date_hour?: Prisma.appointmentsEmail_doctorDateHourCompoundUniqueInput
+  email_doctor_date?: Prisma.appointmentsEmail_doctorDateCompoundUniqueInput
   AND?: Prisma.appointmentsWhereInput | Prisma.appointmentsWhereInput[]
   OR?: Prisma.appointmentsWhereInput[]
   NOT?: Prisma.appointmentsWhereInput | Prisma.appointmentsWhereInput[]
   email_doctor?: Prisma.StringFilter<"appointments"> | string
   email_patient?: Prisma.StringFilter<"appointments"> | string
   date?: Prisma.DateTimeFilter<"appointments"> | Date | string
-  hour?: Prisma.DateTimeFilter<"appointments"> | Date | string
   registered?: Prisma.DateTimeNullableFilter<"appointments"> | Date | string | null
   doctors?: Prisma.XOR<Prisma.DoctorsScalarRelationFilter, Prisma.doctorsWhereInput>
   registers?: Prisma.XOR<Prisma.RegistersScalarRelationFilter, Prisma.registersWhereInput>
-}, "id" | "email_doctor_date_hour">
+}, "id" | "email_doctor_date">
 
 export type appointmentsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email_doctor?: Prisma.SortOrder
   email_patient?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  hour?: Prisma.SortOrder
   registered?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.appointmentsCountOrderByAggregateInput
   _avg?: Prisma.appointmentsAvgOrderByAggregateInput
@@ -277,13 +266,11 @@ export type appointmentsScalarWhereWithAggregatesInput = {
   email_doctor?: Prisma.StringWithAggregatesFilter<"appointments"> | string
   email_patient?: Prisma.StringWithAggregatesFilter<"appointments"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"appointments"> | Date | string
-  hour?: Prisma.DateTimeWithAggregatesFilter<"appointments"> | Date | string
   registered?: Prisma.DateTimeNullableWithAggregatesFilter<"appointments"> | Date | string | null
 }
 
 export type appointmentsCreateInput = {
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
   doctors: Prisma.doctorsCreateNestedOneWithoutAppointmentsInput
   registers: Prisma.registersCreateNestedOneWithoutAppointmentsInput
@@ -294,13 +281,11 @@ export type appointmentsUncheckedCreateInput = {
   email_doctor: string
   email_patient: string
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
 }
 
 export type appointmentsUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   doctors?: Prisma.doctorsUpdateOneRequiredWithoutAppointmentsNestedInput
   registers?: Prisma.registersUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -311,7 +296,6 @@ export type appointmentsUncheckedUpdateInput = {
   email_doctor?: Prisma.StringFieldUpdateOperationsInput | string
   email_patient?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -320,13 +304,11 @@ export type appointmentsCreateManyInput = {
   email_doctor: string
   email_patient: string
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
 }
 
 export type appointmentsUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -335,7 +317,6 @@ export type appointmentsUncheckedUpdateManyInput = {
   email_doctor?: Prisma.StringFieldUpdateOperationsInput | string
   email_patient?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -345,10 +326,9 @@ export type appointmentsOrderByRelevanceInput = {
   search: string
 }
 
-export type appointmentsEmail_doctorDateHourCompoundUniqueInput = {
+export type appointmentsEmail_doctorDateCompoundUniqueInput = {
   email_doctor: string
   date: Date | string
-  hour: Date | string
 }
 
 export type appointmentsCountOrderByAggregateInput = {
@@ -356,7 +336,6 @@ export type appointmentsCountOrderByAggregateInput = {
   email_doctor?: Prisma.SortOrder
   email_patient?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  hour?: Prisma.SortOrder
   registered?: Prisma.SortOrder
 }
 
@@ -369,7 +348,6 @@ export type appointmentsMaxOrderByAggregateInput = {
   email_doctor?: Prisma.SortOrder
   email_patient?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  hour?: Prisma.SortOrder
   registered?: Prisma.SortOrder
 }
 
@@ -378,7 +356,6 @@ export type appointmentsMinOrderByAggregateInput = {
   email_doctor?: Prisma.SortOrder
   email_patient?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  hour?: Prisma.SortOrder
   registered?: Prisma.SortOrder
 }
 
@@ -502,7 +479,6 @@ export type appointmentsUncheckedUpdateManyWithoutRegistersNestedInput = {
 
 export type appointmentsCreateWithoutDoctorsInput = {
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
   registers: Prisma.registersCreateNestedOneWithoutAppointmentsInput
 }
@@ -511,7 +487,6 @@ export type appointmentsUncheckedCreateWithoutDoctorsInput = {
   id?: number
   email_patient: string
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
 }
 
@@ -549,13 +524,11 @@ export type appointmentsScalarWhereInput = {
   email_doctor?: Prisma.StringFilter<"appointments"> | string
   email_patient?: Prisma.StringFilter<"appointments"> | string
   date?: Prisma.DateTimeFilter<"appointments"> | Date | string
-  hour?: Prisma.DateTimeFilter<"appointments"> | Date | string
   registered?: Prisma.DateTimeNullableFilter<"appointments"> | Date | string | null
 }
 
 export type appointmentsCreateWithoutRegistersInput = {
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
   doctors: Prisma.doctorsCreateNestedOneWithoutAppointmentsInput
 }
@@ -564,7 +537,6 @@ export type appointmentsUncheckedCreateWithoutRegistersInput = {
   id?: number
   email_doctor: string
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
 }
 
@@ -598,13 +570,11 @@ export type appointmentsCreateManyDoctorsInput = {
   id?: number
   email_patient: string
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
 }
 
 export type appointmentsUpdateWithoutDoctorsInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   registers?: Prisma.registersUpdateOneRequiredWithoutAppointmentsNestedInput
 }
@@ -613,7 +583,6 @@ export type appointmentsUncheckedUpdateWithoutDoctorsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email_patient?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -621,7 +590,6 @@ export type appointmentsUncheckedUpdateManyWithoutDoctorsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email_patient?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -629,13 +597,11 @@ export type appointmentsCreateManyRegistersInput = {
   id?: number
   email_doctor: string
   date: Date | string
-  hour: Date | string
   registered?: Date | string | null
 }
 
 export type appointmentsUpdateWithoutRegistersInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   doctors?: Prisma.doctorsUpdateOneRequiredWithoutAppointmentsNestedInput
 }
@@ -644,7 +610,6 @@ export type appointmentsUncheckedUpdateWithoutRegistersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email_doctor?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -652,7 +617,6 @@ export type appointmentsUncheckedUpdateManyWithoutRegistersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email_doctor?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hour?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   registered?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -663,7 +627,6 @@ export type appointmentsSelect<ExtArgs extends runtime.Types.Extensions.Internal
   email_doctor?: boolean
   email_patient?: boolean
   date?: boolean
-  hour?: boolean
   registered?: boolean
   doctors?: boolean | Prisma.doctorsDefaultArgs<ExtArgs>
   registers?: boolean | Prisma.registersDefaultArgs<ExtArgs>
@@ -676,11 +639,10 @@ export type appointmentsSelectScalar = {
   email_doctor?: boolean
   email_patient?: boolean
   date?: boolean
-  hour?: boolean
   registered?: boolean
 }
 
-export type appointmentsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email_doctor" | "email_patient" | "date" | "hour" | "registered", ExtArgs["result"]["appointments"]>
+export type appointmentsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email_doctor" | "email_patient" | "date" | "registered", ExtArgs["result"]["appointments"]>
 export type appointmentsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   doctors?: boolean | Prisma.doctorsDefaultArgs<ExtArgs>
   registers?: boolean | Prisma.registersDefaultArgs<ExtArgs>
@@ -697,7 +659,6 @@ export type $appointmentsPayload<ExtArgs extends runtime.Types.Extensions.Intern
     email_doctor: string
     email_patient: string
     date: Date
-    hour: Date
     registered: Date | null
   }, ExtArgs["result"]["appointments"]>
   composites: {}
@@ -1074,7 +1035,6 @@ export interface appointmentsFieldRefs {
   readonly email_doctor: Prisma.FieldRef<"appointments", 'String'>
   readonly email_patient: Prisma.FieldRef<"appointments", 'String'>
   readonly date: Prisma.FieldRef<"appointments", 'DateTime'>
-  readonly hour: Prisma.FieldRef<"appointments", 'DateTime'>
   readonly registered: Prisma.FieldRef<"appointments", 'DateTime'>
 }
     

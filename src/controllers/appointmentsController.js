@@ -19,6 +19,7 @@ class appointmentsController {
             const appointments = await appointmentsService.findMany();
             return response(res, 200, "Agendas listadas.", appointments);
         } catch (error) {
+            console.log(error);
             return handlePrismaError(res, error);
         }
     }
@@ -26,10 +27,25 @@ class appointmentsController {
     async findUnique(req, res) {
         try {
             const { id } = req.params;
-            const appointment = await appointmentsService.findUnique(id);
+            const appointment = await appointmentsService.findUnique(
+                Number(id)
+            );
             if (!appointment)
                 return response(res, 400, "Agenda não encontrada.");
             return response(res, 200, "Agenda encontrada.", appointment);
+        } catch (error) {
+            console.log(error);
+            return handlePrismaError(res, error);
+        }
+    }
+
+    async findByDoctor(req, res) {
+        try {
+            const { email } = req.params;
+            const appointments = await appointmentsService.findByDoctor(email);
+            if (!appointments)
+                return response(res, 400, "Agendas não encontradas.");
+            return response(res, 200, "Agendas encontradas.", appointments);
         } catch (error) {
             return handlePrismaError(res, error);
         }

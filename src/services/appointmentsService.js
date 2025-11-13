@@ -13,6 +13,10 @@ class appointmentsService {
         return await prisma.appointments.findUnique({ where: { id } });
     }
 
+    async findByDoctor(email_doctor) {
+        return await prisma.appointments.findMany({ where: { email_doctor } });
+    }
+
     async update(id, data) {
         return await prisma.appointments.update({ where: { id }, data });
     }

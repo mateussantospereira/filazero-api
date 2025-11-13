@@ -37,6 +37,11 @@ router.get(
     zodValidatorParams(idSchemaParams),
     appointmentsController.findUnique
 );
+router.get(
+    "/appointments/doctor/:email",
+    zodValidatorParams(emailSchemaParams),
+    appointmentsController.findByDoctor
+);
 router.put(
     "/appointments/:id",
     zodValidatorParams(idSchemaParams),
@@ -60,6 +65,11 @@ router.get(
     "/doctors/:email",
     zodValidatorParams(emailSchemaParams),
     doctorsController.findUnique
+);
+router.get(
+    "/doctors/availability/:email",
+    zodValidatorParams(emailSchemaParams),
+    doctorsController.availability
 );
 router.put(
     "/doctors/:email",
