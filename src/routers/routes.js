@@ -12,6 +12,7 @@ import { expedientsSchema } from "../zod/index.ts";
 import { fieldsSchema } from "../zod/index.ts";
 import { hospitalsSchema } from "../zod/index.ts";
 import { registersSchema } from "../zod/index.ts";
+import { loginSchema } from "../zod/index.ts";
 import { weekdaysSchema } from "../zod/index.ts";
 import zodValidatorBody from "../middlewares/zodValidatorBody.js";
 import zodValidatorParams from "../middlewares/zodValidatorParams.js";
@@ -156,6 +157,11 @@ router.post(
     "/registers",
     zodValidatorBody(registersSchema),
     registersController.create
+);
+router.post(
+    "/registers/login",
+    zodValidatorBody(loginSchema),
+    registersController.login
 );
 router.get("/registers", registersController.findMany);
 router.get(

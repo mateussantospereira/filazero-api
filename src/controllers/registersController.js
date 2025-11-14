@@ -1,11 +1,14 @@
 import registersService from "../services/registersService.js";
 import response from "../utils/response.js";
 import handlePrismaError from "../utils/handlePrismaError.js";
+import bcrypt from "bcrypt";
+import { createJWTToken } from "../supports/registersSupports/tokenJWT.js";
 
 class registersController {
     async create(req, res) {
         try {
             const data = req.body;
+            data.password = await bcrypt.hash(data.password, 8);
             await registersService.create(data);
             return response(res, 201, "Registro criado com sucesso.");
         } catch (error) {
@@ -40,7 +43,16 @@ class registersController {
         try {
             const data = req.body;
             const register = await registersService.findUnique(data.email);
-            return response(res, 200, "Registro alterado.");
+            if (!register)
+                return response(res, 400, "E-mail ou senha incorretos.");
+            let validePass = await bcrypt.compare(
+                data.password,
+                register.password
+            );
+            if (!validePass)
+                return response(res, 400, "E-mail ou senha incorretos.");
+            const token = createJWTToken(register);
+            return response(res, 200, "Validação concluída.", token);
         } catch (error) {
             return handlePrismaError(res, error);
         }
