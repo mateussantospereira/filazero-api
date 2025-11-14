@@ -36,6 +36,16 @@ class registersController {
         }
     }
 
+    async login(req, res) {
+        try {
+            const data = req.body;
+            const register = await registersService.findUnique(data.email);
+            return response(res, 200, "Registro alterado.");
+        } catch (error) {
+            return handlePrismaError(res, error);
+        }
+    }
+
     async update(req, res) {
         try {
             const data = req.body;

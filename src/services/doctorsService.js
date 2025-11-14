@@ -47,7 +47,31 @@ class doctorsService {
             return [];
         }
 
-        return availability(doctor);
+        const available = availability(doctor);
+
+        const appointments = await prisma.appointments.findMany({
+            where: { email_doctor: email },
+        });
+
+        if (appointments.length == 0) {
+            return available;
+        }
+
+        const dates = [];
+
+        appointments.forEach((a) => {
+            dates.push(new Date(a.date).getTime());
+        });
+
+        for (let day in available) {
+            for (let time in available[day]) {
+                if (dates.includes(new Date(available[day][time]).getTime())) {
+                    available[day].splice(time, 1);
+                }
+            }
+        }
+
+        return available;
     }
 
     async update(email, data) {

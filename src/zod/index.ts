@@ -201,6 +201,11 @@ export const registersSchema = z.object({
     type: z.number().int(),
 });
 
+export const loginSchema = z.object({
+    email: z.email(),
+    password: z.string(),
+});
+
 export type registers = z.infer<typeof registersSchema>;
 
 /////////////////////////////////////////

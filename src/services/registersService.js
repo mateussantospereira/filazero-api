@@ -6,7 +6,11 @@ class registersService {
     }
 
     async findMany() {
-        return await prisma.registers.findMany();
+        return await prisma.registers.findMany({
+            omit: {
+                password: true,
+            },
+        });
     }
 
     async findUnique(email) {

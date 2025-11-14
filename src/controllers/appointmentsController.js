@@ -1,4 +1,6 @@
 import appointmentsService from "../services/appointmentsService.js";
+import doctorsServices from "../services/doctorsService.js";
+import localDate from "../supports/doctorsSupports/localDate.js";
 import response from "../utils/response.js";
 import handlePrismaError from "../utils/handlePrismaError.js";
 
@@ -6,6 +8,25 @@ class appointmentsController {
     async create(req, res) {
         try {
             const data = req.body;
+            const date = new Date(data.date);
+            const available = await doctorsServices.availability(
+                data.email_doctor
+            );
+            if (!available) return response(res, 400, "Médico não encontrado.");
+            if (available == [])
+                return response(res, 400, "Erro ao buscar horários.");
+            let findedDate = false;
+            for (const day of available) {
+                for (const time of day) {
+                    if (new Date(time).getTime() == date.getTime()) {
+                        findedDate = true;
+                        break;
+                    }
+                }
+                if (findedDate) break;
+            }
+            if (!findedDate)
+                return response(res, 400, "Horário não disponível.");
             await appointmentsService.create(data);
             return response(res, 201, "Agenda criada com sucesso.");
         } catch (error) {
@@ -47,6 +68,7 @@ class appointmentsController {
                 return response(res, 400, "Agendas não encontradas.");
             return response(res, 200, "Agendas encontradas.", appointments);
         } catch (error) {
+            console.log(error);
             return handlePrismaError(res, error);
         }
     }
